@@ -1,0 +1,42 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    {% block css %}
+        <link rel="stylesheet" href="{% static 'MHT/style.css' %}" type="text/css">
+    {% endblock %}
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Document</title>
+</head>
+<header class="header">
+    <div class="container">
+        <nav class="nav">
+	        {% if request.user.is_authenticated %}
+                {% if reques.user.get_short_name is null%}
+                    <a>Привет, {{request.user.username}}</a>
+                    <a href={% url 'logout' %}?  class="btn btn-outline">Выход</a>
+                {% else %}
+		            <a>Привет, {{request.user.first_name | title}} {{request.user.last_name | title}}</a>
+	    	        <a href={% url 'logout' %}?  class="btn btn-outline">Выход</a>
+                {% endif %}
+            {% else %}
+			    <a href="{% url 'login' %}" class="btn btn-outline">Вход</a>
+            {% endif %}
+	    </nav>
+    </div>
+</header>
+
+<body class="container">
+
+    {% block main %}
+    {% endblock %}
+
+    {% block home %}
+    {% endblock %}
+
+</body>
+</html>
